@@ -40,8 +40,8 @@ export class GetSongSuggestionsUseCase implements IUseCase<GetSongSuggestionsArg
 
     return (
       Object.values(suggestions)
-        .map((element) => element && createSongPayload(element.song))
-        .filter(Boolean)
+        .filter((element: any) => element && typeof element === 'object' && 'song' in element && element.song)
+        .map((element: any) => createSongPayload(element.song))
         .slice(0, limit) || []
     )
   }
